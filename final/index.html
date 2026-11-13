@@ -133,9 +133,57 @@ td {
 th {
 	background: var(--table-head);
 }
+/* Highlight the hovered row */
+tbody tr:hover {
+	background-color: #316431;
+    font-weight: bold;
+    color: white;
+}
+
+/* Highlight the hovered cell */
+tbody td:hover {
+	background-color: #ff6363;
+    color: white;
+    font-weight: bold;
+}
+
+/* Highlight other cells with the same value */
+td.same-value {
+	background-color: #ffd3d9;
+}
     </style>
 </head>
 <body>
 <table><thead><tr><th>Project</th><th>Client</th><th>Lead Developer</th><th>Junior Developer 1</th><th>Junior Developer 2</th></tr></thead><tbody><tr><td>1</td><td>Abdualimov, Umar</td><td>Patten, Spencer</td><td>Peer, Hannah</td><td>Neibaur, Jace</td></tr><tr><td>2</td><td>Banks, Michael</td><td>Lockwood, Brendan</td><td>Stokes, Seth</td><td>Smith, Spencer</td></tr><tr><td>3</td><td>Craig, John</td><td>Smith, Spencer</td><td>North, Alana</td><td>Lockwood, Brendan</td></tr><tr><td>4</td><td>Fura, Lauren</td><td>Stokes, Seth</td><td>Tarbet, Andrew</td><td>Craig, John</td></tr><tr><td>5</td><td>Hales, Virginia</td><td>Simbulan, Ezra</td><td>Mitchell, Jonah</td><td>Jerauld, Tyson</td></tr><tr><td>6</td><td>Horne, Braden</td><td>Peer, Hannah</td><td>Smith, Spencer</td><td>Mitchell, Jonah</td></tr><tr><td>7</td><td>Jerauld, Tyson</td><td>Vanderhorst Burgos, Alejandro</td><td>Lockwood, Brendan</td><td>Tarbet, Andrew</td></tr><tr><td>8</td><td>Lockwood, Brendan</td><td>Craig, John</td><td>Neibaur, Jace</td><td>Hales, Virginia</td></tr><tr><td>9</td><td>Mitchell, Jonah</td><td>Tarbet, Andrew</td><td>Hales, Virginia</td><td>Vanderhorst Burgos, Alejandro</td></tr><tr><td>10</td><td>Neibaur, Jace</td><td>Abdualimov, Umar</td><td>Vanderhorst Burgos, Alejandro</td><td>Nelson, Michael</td></tr><tr><td>11</td><td>Nelson, Michael</td><td>Hales, Virginia</td><td>Banks, Michael</td><td>Stokes, Seth</td></tr><tr><td>12</td><td>North, Alana</td><td>Banks, Michael</td><td>Craig, John</td><td>Horne, Braden</td></tr><tr><td>13</td><td>Patten, Spencer</td><td>Nelson, Michael</td><td>Horne, Braden</td><td>North, Alana</td></tr><tr><td>14</td><td>Peer, Hannah</td><td>Mitchell, Jonah</td><td>Simbulan, Ezra</td><td>Fura, Lauren</td></tr><tr><td>15</td><td>Simbulan, Ezra</td><td>Neibaur, Jace</td><td>Nelson, Michael</td><td>Banks, Michael</td></tr><tr><td>16</td><td>Smith, Spencer</td><td>Horne, Braden</td><td>Jerauld, Tyson</td><td>Simbulan, Ezra</td></tr><tr><td>17</td><td>Stokes, Seth</td><td>Jerauld, Tyson</td><td>Fura, Lauren</td><td>Peer, Hannah</td></tr><tr><td>18</td><td>Tarbet, Andrew</td><td>North, Alana</td><td>Patten, Spencer</td><td>Abdualimov, Umar</td></tr><tr><td>19</td><td>Vanderhorst Burgos, Alejandro</td><td>Fura, Lauren</td><td>Abdualimov, Umar</td><td>Patten, Spencer</td></tr></tbody></table>
+
+<script>
+	const table = document.querySelector("table");
+
+	if (table) {
+		table.addEventListener("mouseover", (event) => {
+			const cell = event.target.closest("td");
+
+			if (!cell || !table.contains(cell)) return;
+
+			const value = cell.textContent.trim();
+
+			table.querySelectorAll("td.same-value").forEach((match) => {
+				match.classList.remove("same-value");
+			});
+
+			table.querySelectorAll("td").forEach((otherCell) => {
+				if (otherCell !== cell && otherCell.textContent.trim() === value) {
+					otherCell.classList.add("same-value");
+				}
+			});
+		});
+
+		table.addEventListener("mouseleave", () => {
+			table.querySelectorAll("td.same-value").forEach((match) => {
+				match.classList.remove("same-value");
+			});
+		});
+	}
+</script>
 </body>
 </html>
