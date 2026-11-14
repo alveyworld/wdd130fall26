@@ -96,6 +96,7 @@ a:hover {
 
 table {
 	width: 100%;
+    table-layout: fixed;
 	border-collapse: collapse;
 	margin-top: 0.75rem;
 	background: var(--surface);
@@ -113,26 +114,12 @@ td {
 th {
 	background: var(--table-head);
 }
-
-        table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 0.75rem;
-	background: var(--surface);
-	border: 1px solid var(--surface-border);
+th:first-child,
+td:first-child {
+	width: 5rem;
 }
 
-th,
-td {
-	text-align: left;
-	vertical-align: top;
-	padding: 0.6rem 0.7rem;
-	border: 1px solid var(--surface-border);
-}
-
-th {
-	background: var(--table-head);
-}
+ 
 /* Highlight the hovered row */
 tbody tr:hover {
 	background-color: #316431;
